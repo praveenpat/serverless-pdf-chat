@@ -4,7 +4,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import Layout from "./routes/layout";
 import Documents from "./routes/documents";
+import Incidents from "./routes/incidents";
 import Chat from "./routes/chat";
+import SummaryPage from "./routes/summary";
 
 Amplify.configure({
   Auth: {
@@ -17,6 +19,18 @@ Amplify.configure({
       {
         name: "serverless-pdf-chat",
         endpoint: import.meta.env.VITE_API_ENDPOINT,
+        region: import.meta.env.VITE_API_REGION,
+        custom_header: async () => {
+          return {
+            Authorization: `Bearer ${(await Auth.currentSession())
+              .getIdToken()
+              .getJwtToken()}`,
+          };
+        },
+      },
+      {
+        name: "summary-api",
+        endpoint: "https://ohepqq555a.execute-api.us-east-1.amazonaws.com/Stage",
         region: import.meta.env.VITE_API_REGION,
         custom_header: async () => {
           return {
@@ -45,6 +59,21 @@ let router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "/summary",
+    element: <Layout />,
+    children: [
+      {
+        index: true,
+        Component: Incidents,
+      },
+      {
+        path: "incident/:documentid/:conversationid",
+        Component: SummaryPage,
+      },
+    ],
+  },
+  
 ]);
 
 function App() {

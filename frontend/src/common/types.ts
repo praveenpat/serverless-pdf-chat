@@ -24,3 +24,21 @@ export interface Conversation {
     };
   }[];
 }
+
+export interface Incident {
+  documentid: string;
+  userid: string;
+  filename: string;
+  docstatus: string;
+  created: string;
+}
+
+export interface Summary {
+  conversationid: string;
+  incident: Incident;
+  content: {
+    Subject: string;
+    Summary: string;
+    sop_evaluation: string;
+  }
+}

@@ -3,6 +3,7 @@ import { Menu } from "@headlessui/react";
 import {
   ArrowLeftOnRectangleIcon,
   ChevronDownIcon,
+  DocumentTextIcon
 } from "@heroicons/react/24/outline";
 import { ChatBubbleLeftRightIcon } from "@heroicons/react/24/solid";
 
@@ -20,13 +21,25 @@ const Navigation: React.FC<NavigationProps> = ({
   return (
     <nav className="bg-violet-900">
       <div className="container flex flex-wrap items-center justify-between py-3">
-        <Link
-          to="/"
-          className="inline-flex items-center self-center text-2xl font-semibold whitespace-nowrap text-white"
-        >
-          <ChatBubbleLeftRightIcon className="w-6 h-6 mr-1.5" />
-          DocChat
-        </Link>
+        <div className="flex items-center"> {/* Encapsulate both Links in a flex div */}
+          {/* Existing DocChat Link */}
+          <Link
+            to="/"
+            className="inline-flex items-center self-center text-2xl font-semibold whitespace-nowrap text-white mr-4"  // Existing margin for separation
+          >
+            <ChatBubbleLeftRightIcon className="w-6 h-6 mr-1.5" />
+            DocChat
+          </Link>
+
+          {/* New Summary Link */}
+          <Link
+            to="/summary"  // You can change this route later as needed
+            className="inline-flex items-center self-center text-2xl font-semibold whitespace-nowrap text-white"
+          >
+            <DocumentTextIcon className="w-6 h-6 mr-1.5" />
+            Summary
+          </Link>
+        </div>
         <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
           <div className="relative ml-3">
             <Menu>
